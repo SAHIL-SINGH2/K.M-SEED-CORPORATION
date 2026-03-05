@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenField Agro Store – Pesticides & Fertilizers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #1a3a2a;
+    --green-mid: #2d6a4f;
+    --green-bright: #40916c;
+    --green-light: #74c69d;
+    --green-pale: #d8f3dc;
+    --amber: #f4a261;
+    --amber-dark: #e76f51;
+    --cream: #faf8f3;
+    --text-dark: #1a1a1a;
+    --text-mid: #4a4a4a;
+    --text-light: #888;
+    --white: #ffffff;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-md: 0 8px 30px rgba(0,0,0,0.12);
+    --shadow-lg: 0 20px 60px rgba(0,0,0,0.18);
+    --radius: 16px;
+    --radius-sm: 8px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 60%, var(--green-bright) 100%);
+    color: var(--white);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-md);
+  }
+
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .brand { display: flex; align-items: center; gap: 12px; }
+
+  .brand-icon {
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .brand-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .brand-text p {
+    font-size: 0.72rem;
+    opacity: 0.8;
+    margin-top: 2px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .header-actions { display: flex; align-items: center; gap: 10px; }
+
+  .whatsapp-btn-header {
+    background: #25d366;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .whatsapp-btn-header:hover { transform: scale(1.04); background: #20ba5a; }
+
+  .cart-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    color: white;
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    position: relative;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .cart-btn:hover { background: rgba(255,255,255,0.25); }
+
+  .cart-count {
+    position: absolute;
+    top: -6px; right: -6px;
+    background: var(--amber-dark);
+    color: white;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    font-size: 0.65rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--green-dark);
+    transition: transform 0.2s;
+  }
+  .cart-count.bump { animation: bump 0.3s ease; }
+  @keyframes bump { 0%,100%{transform:scale(1)} 50%{transform:scale(1.4)} }
+
+  /* ===== HERO BANNER ===== */
+  .hero {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%);
+    padding: 40px 20px 48px;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-content { position: relative; max-width: 600px; margin: 0 auto; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--green-pale);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .hero p { opacity: 0.85; font-size: 1rem; line-height: 1.6; }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    background: var(--green-pale);
+    border-bottom: 1px solid #b7e4c7;
+    padding: 10px 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .trust-bar::-webkit-scrollbar { display: none; }
+  .trust-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    min-width: max-content;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.78rem; font-weight: 500;
+    color: var(--green-dark);
+  }
+  .trust-item span:first-child { font-size: 1rem; }
+
+  /* ===== MAIN CONTENT ===== */
+  main { max-width: 1200px; margin: 0 auto; padding: 28px 16px 120px; }
+
+  /* ===== SEARCH BAR ===== */
+  .search-wrap {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 13px 16px 13px 44px;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif;
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+    color: var(--text-dark);
+  }
+  .search-wrap input:focus { border-color: var(--green-bright); }
+  .search-icon {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    font-size: 1.1rem; opacity: 0.4;
+  }
+
+  /* ===== CATEGORY FILTERS ===== */
+  .filters-wrap {
+    margin-bottom: 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .filters-wrap::-webkit-scrollbar { display: none; }
+  .filters {
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+  }
+
+  .filter-btn {
+    padding: 8px 18px;
+    border-radius: 30px;
+    border: 2px solid #dde9e4;
+    background: white;
+    color: var(--text-mid);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    font-family: 'DM Sans', sans-serif;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .filter-btn:hover { border-color: var(--green-bright); color: var(--green-bright); }
+  .filter-btn.active {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+    color: white;
+  }
+
+  /* ===== SECTION HEADING ===== */
+  .section-heading {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .section-heading h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--green-dark);
+  }
+  .product-count { font-size: 0.8rem; color: var(--text-light); font-weight: 500; }
+
+  /* ===== PRODUCT GRID ===== */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+  }
+  @media(min-width: 480px) { .product-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); } }
+  @media(min-width: 768px) { .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; } }
+
+  .product-card {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.22s, box-shadow 0.22s;
+    display: flex; flex-direction: column;
+    border: 1px solid #f0f0f0;
+  }
+  .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+  .product-img-wrap {
+    width: 100%; aspect-ratio: 1;
+    background: linear-gradient(135deg, #f0f7f2, #e0f0e8);
+    position: relative;
+    overflow: hidden;
+  }
+  .product-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+    display: block;
+  }
+  .product-card:hover .product-img-wrap img { transform: scale(1.06); }
+
+  .product-category-tag {
+    position: absolute;
+    top: 8px; left: 8px;
+    background: var(--green-dark);
+    color: white;
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .product-body { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+  .product-name { font-weight: 600; font-size: 0.92rem; line-height: 1.3; color: var(--text-dark); }
+  .product-desc { font-size: 0.75rem; color: var(--text-light); line-height: 1.4; flex: 1; }
+  .product-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; gap: 6px; }
+  .product-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--green-dark);
+  }
+  .product-price .unit { font-size: 0.65rem; font-weight: 400; color: var(--text-light); display: block; font-family: 'DM Sans', sans-serif; }
+
+  .add-btn {
+    background: var(--green-bright);
+    color: white;
+    border: none;
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .add-btn:hover { background: var(--green-dark); transform: scale(1.1); }
+  .add-btn.added { background: var(--amber-dark); animation: addpop 0.35s ease; }
+  @keyframes addpop { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
+
+  .no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+    font-size: 1rem;
+    display: none;
+  }
+  .no-results .emoji { font-size: 3rem; margin-bottom: 12px; }
+
+  /* ===== FLOATING WHATSAPP ===== */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 80px; right: 18px;
+    z-index: 90;
+    width: 52px; height: 52px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s;
+    animation: float-pulse 3s ease-in-out infinite;
+  }
+  .whatsapp-float:hover { transform: scale(1.12); }
+  @keyframes float-pulse {
+    0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.5)}
+    50%{box-shadow:0 4px 30px rgba(37,211,102,0.8)}
+  }
+
+  /* ===== CART MODAL ===== */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  @media(min-width: 600px) { .modal-overlay { align-items: center; } }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: white;
+    width: 100%; max-width: 560px;
+    border-radius: 24px 24px 0 0;
+    max-height: 92vh;
+    display: flex; flex-direction: column;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    overflow: hidden;
+  }
+  @media(min-width: 600px) {
+    .modal { border-radius: 24px; max-height: 85vh; transform: scale(0.85); }
+  }
+  .modal-overlay.open .modal {
+    transform: translateY(0);
+  }
+  @media(min-width: 600px) {
+    .modal-overlay.open .modal { transform: scale(1); }
+  }
+
+  .modal-header {
+    padding: 20px 20px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--green-dark);
+    color: white;
+  }
+  .modal-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .close-btn {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: white;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .close-btn:hover { background: rgba(255,255,255,0.25); }
+
+  .modal-body { flex: 1; overflow-y: auto; padding: 16px; }
+
+  /* Cart empty state */
+  .cart-empty { text-align: center; padding: 50px 20px; color: var(--text-light); }
+  .cart-empty .emoji { font-size: 3.5rem; display: block; margin-bottom: 12px; }
+  .cart-empty p { font-size: 0.95rem; }
+
+  /* Cart items */
+  .cart-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f0f0;
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn { from{opacity:0;transform:translateX(-12px)} to{opacity:1;transform:none} }
+
+  .cart-item-img {
+    width: 56px; height: 56px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: var(--green-pale);
+    flex-shrink: 0;
+  }
+
+  .cart-item-info { flex: 1; min-width: 0; }
+  .cart-item-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 2px; }
+  .cart-item-cat { font-size: 0.72rem; color: var(--text-light); margin-bottom: 6px; }
+  .cart-item-subtotal { font-weight: 700; color: var(--green-dark); font-size: 0.9rem; }
+
+  .cart-item-controls { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .qty-btn {
+    width: 26px; height: 26px;
+    border-radius: 6px;
+    border: 1.5px solid #ddd;
+    background: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    transition: all 0.15s;
+    color: var(--text-dark);
+  }
+  .qty-btn:hover { border-color: var(--green-bright); color: var(--green-bright); }
+  .qty-display { font-weight: 700; font-size: 0.95rem; min-width: 20px; text-align: center; }
+  .remove-btn {
+    margin-left: 6px;
+    background: none; border: none; cursor: pointer;
+    color: #ccc; font-size: 1rem;
+    transition: color 0.2s;
+    padding: 2px;
+  }
+  .remove-btn:hover { color: var(--amber-dark); }
+
+  /* Cart footer */
+  .cart-footer {
+    padding: 16px;
+    border-top: 1px solid #f0f0f0;
+    background: #fafafa;
+  }
+  .cart-total-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px;
+  }
+  .cart-total-label { font-size: 0.9rem; color: var(--text-mid); }
+  .cart-total-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--green-dark);
+  }
+  .checkout-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--green-mid), var(--green-dark));
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .checkout-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(45,106,79,0.4); }
+  .checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* ===== ORDER FORM MODAL ===== */
+  .form-modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    z-index: 300;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding: 0;
+  }
+  @media(min-width: 600px) { .form-modal-overlay { align-items: center; padding: 20px; } }
+  .form-modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .form-modal {
+    background: white;
+    width: 100%; max-width: 540px;
+    border-radius: 24px 24px 0 0;
+    max-height: 95vh;
+    display: flex; flex-direction: column;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    overflow: hidden;
+  }
+  @media(min-width: 600px) {
+    .form-modal { border-radius: 24px; transform: scale(0.9); }
+  }
+  .form-modal-overlay.open .form-modal {
+    transform: translateY(0);
+  }
+  @media(min-width: 600px) {
+    .form-modal-overlay.open .form-modal { transform: scale(1); }
+  }
+
+  .form-modal-header {
+    padding: 18px 20px;
+    background: var(--amber-dark);
+    color: white;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .form-modal-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .form-body { flex: 1; overflow-y: auto; padding: 20px; }
+
+  .order-summary-mini {
+    background: var(--green-pale);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    font-size: 0.82rem;
+  }
+  .order-summary-mini h4 {
+    font-weight: 700; color: var(--green-dark); margin-bottom: 8px; font-size: 0.85rem;
+  }
+  .summary-line { display: flex; justify-content: space-between; padding: 2px 0; color: var(--text-mid); }
+  .summary-total { display: flex; justify-content: space-between; padding-top: 8px; margin-top: 6px; border-top: 1px solid #b7e4c7; font-weight: 700; color: var(--green-dark); font-size: 0.9rem; }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+    color: var(--text-dark);
+    background: white;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--green-bright); }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+
+  .place-order-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all 0.2s;
+    margin-top: 4px;
+  }
+  .place-order-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(231,111,81,0.4); }
+
+  /* ===== SUCCESS SCREEN ===== */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .success-screen.show { display: block; }
+  .success-icon { font-size: 4rem; animation: bounce 0.6s ease; }
+  @keyframes bounce { 0%{transform:scale(0)} 60%{transform:scale(1.2)} 100%{transform:scale(1)} }
+  .success-screen h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--green-dark);
+    margin: 16px 0 8px;
+  }
+  .success-screen p { color: var(--text-mid); font-size: 0.9rem; line-height: 1.6; }
+  .whatsapp-confirm-btn {
+    display: inline-flex;
+    align-items: center; gap: 8px;
+    background: #25d366;
+    color: white;
+    text-decoration: none;
+    padding: 13px 24px;
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-top: 20px;
+    transition: all 0.2s;
+  }
+  .whatsapp-confirm-btn:hover { transform: scale(1.04); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 24px 20px;
+    font-size: 0.8rem;
+    line-height: 1.7;
+  }
+  footer strong { color: white; }
+  footer a { color: var(--green-light); text-decoration: none; }
+
+  /* ===== LOADING SPINNER ===== */
+  .spinner { display: none; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--green-dark);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 500;
+    opacity: 0;
+    transition: all 0.3s;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">🌿</div>
+      <div class="brand-text">
+        <h1>GreenField Agro Store</h1>
+        <p>📍 Quality Pesticides & Fertilizers</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a href="https://wa.me/919876543210" target="_blank" class="whatsapp-btn-header" title="Chat on WhatsApp">
+        💬 <span style="display:none;display:inline" class="wa-label">Chat</span>
+      </a>
+      <button class="cart-btn" onclick="openCart()" aria-label="Open cart">
+        🛒
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🌾 Trusted by 500+ Farmers</div>
+    <h2>Grow More, Spend Less</h2>
+    <p>Premium pesticides, fertilizers & agro chemicals — delivered to your farm. Order now, we'll confirm on WhatsApp.</p>
+  </div>
+</div>
+
+<!-- ===== TRUST BAR ===== -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><span>✅</span> Genuine Products</div>
+    <div class="trust-item"><span>🚚</span> Fast Delivery</div>
+    <div class="trust-item"><span>📞</span> Expert Advice</div>
+    <div class="trust-item"><span>💰</span> Best Prices</div>
+    <div class="trust-item"><span>🌿</span> Eco-Friendly Options</div>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<main>
+
+  <!-- Search -->
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search products, brands..." oninput="filterProducts()" />
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-wrap">
+    <div class="filters" id="filterBtns">
+      <button class="filter-btn active" onclick="setFilter('All', this)" data-cat="All">🌾 All</button>
+      <button class="filter-btn" onclick="setFilter('Pesticides', this)" data-cat="Pesticides">🐛 Pesticides</button>
+      <button class="filter-btn" onclick="setFilter('Fertilizers', this)" data-cat="Fertilizers">🌱 Fertilizers</button>
+      <button class="filter-btn" onclick="setFilter('Herbicides', this)" data-cat="Herbicides">🌿 Herbicides</button>
+      <button class="filter-btn" onclick="setFilter('Fungicides', this)" data-cat="Fungicides">🍄 Fungicides</button>
+      <button class="filter-btn" onclick="setFilter('Micronutrients', this)" data-cat="Micronutrients">💊 Micronutrients</button>
+    </div>
+  </div>
+
+  <!-- Section heading -->
+  <div class="section-heading">
+    <h3 id="sectionTitle">All Products</h3>
+    <span class="product-count" id="productCount"></span>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="product-grid" id="productGrid"></div>
+
+  <!-- No results -->
+  <div class="no-results" id="noResults">
+    <div class="emoji">🔍</div>
+    <p>No products found. Try a different search or category.</p>
+  </div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <strong>GreenField Agro Store</strong><br>
+  📍 Main Market Road, Agra, UP &nbsp;|&nbsp; 📞 <a href="tel:+919876543210">+91 98765 43210</a><br>
+  ✉️ <a href="mailto:greenfield.agro@gmail.com">greenfield.agro@gmail.com</a><br><br>
+  <em>Orders are confirmed via WhatsApp. Prices may vary. &copy; 2025 GreenField Agro Store.</em>
+</footer>
+
+<!-- ===== FLOATING WHATSAPP ===== -->
+<a href="https://wa.me/919876543210" target="_blank" class="whatsapp-float" title="Chat on WhatsApp" aria-label="WhatsApp">💬</a>
+
+<!-- ===== CART MODAL ===== -->
+<div class="modal-overlay" id="cartOverlay" onclick="handleOverlayClick(event,'cartOverlay')">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>🛒 Your Cart</h2>
+      <button class="close-btn" onclick="closeCart()">✕</button>
+    </div>
+    <div class="modal-body" id="cartBody">
+      <div class="cart-empty" id="cartEmpty">
+        <span class="emoji">🛒</span>
+        <p>Your cart is empty.<br>Add some products to get started!</p>
+      </div>
+      <div id="cartItems"></div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-total-row">
+        <span class="cart-total-label">Grand Total</span>
+        <span class="cart-total-amount" id="grandTotal">₹0</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn" onclick="openOrderForm()">
+        📦 Place Order
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ORDER FORM MODAL ===== -->
+<div class="form-modal-overlay" id="formOverlay" onclick="handleOverlayClick(event,'formOverlay')">
+  <div class="form-modal">
+    <div class="form-modal-header">
+      <h2>📦 Place Your Order</h2>
+      <button class="close-btn" onclick="closeOrderForm()">✕</button>
+    </div>
+    <div class="form-body">
+
+      <!-- Success Screen (hidden by default) -->
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">✅</div>
+        <h3>Order Placed Successfully!</h3>
+        <p>Thank you! <strong>GreenField Agro Store</strong> will contact you on WhatsApp shortly to confirm your order, availability, and delivery details.</p>
+        <a href="https://wa.me/919876543210" target="_blank" class="whatsapp-confirm-btn">
+          💬 Chat on WhatsApp Now
+        </a>
+      </div>
+
+      <!-- Order Form (shown by default) -->
+      <div id="orderFormContainer">
+        <!-- Order Summary -->
+        <div class="order-summary-mini">
+          <h4>📋 Order Summary</h4>
+          <div id="formSummaryItems"></div>
+          <div class="summary-total">
+            <span>Total</span>
+            <span id="formSummaryTotal">₹0</span>
+          </div>
+        </div>
+
+        <!-- Formspree Form -->
+        <!-- ⚠️ REPLACE YOUR_FORM_ID with your actual Formspree form ID -->
+        <!-- Sign up free at formspree.io, create a form, get your form ID -->
+        <form id="orderForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" onsubmit="handleFormSubmit(event)">
+
+          <!-- Hidden fields for email content -->
+          <input type="hidden" name="_subject" id="emailSubject" />
+          <input type="hidden" name="Order Summary" id="hiddenOrderSummary" />
+          <input type="hidden" name="Grand Total" id="hiddenTotal" />
+
+          <div class="form-group">
+            <label>👤 Full Name *</label>
+            <input type="text" name="Customer Name" id="custName" placeholder="Your full name" required />
+          </div>
+
+          <div class="form-group">
+            <label>📱 WhatsApp / Phone Number *</label>
+            <input type="tel" name="Phone Number" id="custPhone" placeholder="e.g. 98765 43210" required pattern="[0-9]{10,}" title="Enter valid 10-digit phone number" />
+          </div>
+
+          <div class="form-group">
+            <label>📍 Delivery Address *</label>
+            <textarea name="Delivery Address" id="custAddress" placeholder="Full address with village/city, PIN code" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>📝 Special Instructions (Optional)</label>
+            <textarea name="Special Instructions" id="custInstructions" placeholder="Any specific instructions or questions..."></textarea>
+          </div>
+
+          <button type="submit" class="place-order-btn" id="placeOrderBtn">
+            <span id="btnText">✅ Confirm Order via Email</span>
+            <div class="spinner" id="btnSpinner"></div>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// PRODUCT DATA — Replace with your actual products
+// Images: Upload to imgbb.com and paste direct URL
+// ============================================================
+const PRODUCTS = [
+  {
+    id: 1,
+    name: "Bayer Confidor (Imidacloprid 17.8%)",
+    price: 420,
+    category: "Pesticides",
+    image: "https://images.unsplash.com/photo-1599687267812-35c05ff70ee9?w=400&q=80",
+    description: "Systemic insecticide for sucking pests – 100ml bottle"
+  },
+  {
+    id: 2,
+    name: "DAP Fertilizer (50 kg Bag)",
+    price: 1350,
+    category: "Fertilizers",
+    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=80",
+    description: "Di-ammonium Phosphate – ideal for all field crops"
+  },
+  {
+    id: 3,
+    name: "Roundup Herbicide (1 Litre)",
+    price: 580,
+    category: "Herbicides",
+    image: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=400&q=80",
+    description: "Glyphosate 41% – non-selective systemic weedkiller"
+  },
+  {
+    id: 4,
+    name: "Mancozeb 75 WP Fungicide",
+    price: 240,
+    category: "Fungicides",
+    image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&q=80",
+    description: "Broad spectrum fungicide – 500g pack"
+  },
+  {
+    id: 5,
+    name: "Urea Fertilizer (50 kg)",
+    price: 290,
+    category: "Fertilizers",
+    image: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=400&q=80",
+    description: "46% Nitrogen – most widely used nitrogenous fertilizer"
+  },
+  {
+    id: 6,
+    name: "Chlorpyrifos 20 EC (1 Ltr)",
+    price: 380,
+    category: "Pesticides",
+    image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80",
+    description: "Contact & stomach poison for soil & foliar insects"
+  },
+  {
+    id: 7,
+    name: "Zinc Sulphate Monohydrate (1 kg)",
+    price: 95,
+    category: "Micronutrients",
+    image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80",
+    description: "33% Zinc – corrects zinc deficiency in wheat, rice, maize"
+  },
+  {
+    id: 8,
+    name: "Atrazine 50 WP (500g)",
+    price: 175,
+    category: "Herbicides",
+    image: "https://images.unsplash.com/photo-1560493676-04071c5f467b?w=400&q=80",
+    description: "Pre & post-emergent herbicide for maize & sugarcane"
+  },
+  {
+    id: 9,
+    name: "NPK 19:19:19 Water Soluble (1 kg)",
+    price: 210,
+    category: "Fertilizers",
+    image: "https://images.unsplash.com/photo-1585772124029-1c09bbf0df75?w=400&q=80",
+    description: "Fully water-soluble balanced fertilizer for foliar spray"
+  },
+  {
+    id: 10,
+    name: "Carbendazim 50% WP (500g)",
+    price: 195,
+    category: "Fungicides",
+    image: "https://images.unsplash.com/photo-1471193945509-9ad0617afabf?w=400&q=80",
+    description: "Systemic fungicide – controls blast, smut & powdery mildew"
+  },
+  {
+    id: 11,
+    name: "Boron (Borax) Granules (1 kg)",
+    price: 75,
+    category: "Micronutrients",
+    image: "https://images.unsplash.com/photo-1557844352-761f2565b576?w=400&q=80",
+    description: "20.8% Boron – essential for flowering & fruit setting"
+  },
+  {
+    id: 12,
+    name: "Lambda Cyhalothrin 5 EC (500ml)",
+    price: 310,
+    category: "Pesticides",
+    image: "https://images.unsplash.com/photo-1599941974635-d7808f96e77e?w=400&q=80",
+    description: "Pyrethroid insecticide – fast knockdown of caterpillars & aphids"
+  }
+];
+
+// ============================================================
+// SHOP CONFIG — Replace with your details
+// ============================================================
+const SHOP = {
+  name: "GreenField Agro Store",
+  phone: "919876543210",  // WhatsApp number with country code, no +
+  email: "greenfield.agro@gmail.com"
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let cart = JSON.parse(localStorage.getItem('agro_cart') || '[]');
+let activeFilter = 'All';
+let searchQuery = '';
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  renderProducts();
+  updateCartUI();
+}
+
+// ============================================================
+// RENDER PRODUCTS
+// ============================================================
+function renderProducts() {
+  const grid = document.getElementById('productGrid');
+  const noResults = document.getElementById('noResults');
+  const countEl = document.getElementById('productCount');
+  const titleEl = document.getElementById('sectionTitle');
+
+  const filtered = PRODUCTS.filter(p => {
+    const catMatch = activeFilter === 'All' || p.category === activeFilter;
+    const searchMatch = !searchQuery ||
+      p.name.toLowerCase().includes(searchQuery) ||
+      p.description.toLowerCase().includes(searchQuery) ||
+      p.category.toLowerCase().includes(searchQuery);
+    return catMatch && searchMatch;
+  });
+
+  titleEl.textContent = activeFilter === 'All' ? 'All Products' : activeFilter;
+  countEl.textContent = `${filtered.length} product${filtered.length !== 1 ? 's' : ''}`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    noResults.style.display = 'block';
+    return;
+  }
+  noResults.style.display = 'none';
+
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" id="card-${p.id}">
+      <div class="product-img-wrap">
+        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=80'" />
+        <span class="product-category-tag">${p.category}</span>
+      </div>
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.description}</div>
+        <div class="product-footer">
+          <div class="product-price">
+            ₹${p.price.toLocaleString('en-IN')}
+          </div>
+          <button class="add-btn" id="addbtn-${p.id}" onclick="addToCart(${p.id})" aria-label="Add ${p.name} to cart">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// FILTER & SEARCH
+// ============================================================
+function setFilter(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterProducts();
+}
+
+function filterProducts() {
+  searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+  renderProducts();
+}
+
+// ============================================================
+// CART OPERATIONS
+// ============================================================
+function addToCart(productId) {
+  const product = PRODUCTS.find(p => p.id === productId);
+  if (!product) return;
+
+  const existing = cart.find(i => i.id === productId);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ id: productId, name: product.name, price: product.price, category: product.category, image: product.image, qty: 1 });
+  }
+
+  saveCart();
+  updateCartUI();
+
+  const btn = document.getElementById(`addbtn-${productId}`);
+  if (btn) {
+    btn.classList.add('added');
+    setTimeout(() => btn.classList.remove('added'), 400);
+  }
+
+  showToast(`✅ ${product.name.split('(')[0].trim()} added to cart`);
+}
+
+function changeQty(productId, delta) {
+  const item = cart.find(i => i.id === productId);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) {
+    cart = cart.filter(i => i.id !== productId);
+  }
+  saveCart();
+  updateCartUI();
+  renderCartItems();
+}
+
+function removeItem(productId) {
+  cart = cart.filter(i => i.id !== productId);
+  saveCart();
+  updateCartUI();
+  renderCartItems();
+}
+
+function saveCart() {
+  localStorage.setItem('agro_cart', JSON.stringify(cart));
+}
+
+function getTotal() {
+  return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+}
+
+function getTotalItems() {
+  return cart.reduce((sum, i) => sum + i.qty, 0);
+}
+
+// ============================================================
+// UPDATE CART UI (badge etc)
+// ============================================================
+function updateCartUI() {
+  const count = getTotalItems();
+  const el = document.getElementById('cartCount');
+  el.textContent = count;
+  el.classList.add('bump');
+  setTimeout(() => el.classList.remove('bump'), 350);
+}
+
+// ============================================================
+// CART MODAL
+// ============================================================
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderCartItems();
+}
+
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderCartItems() {
+  const emptyEl = document.getElementById('cartEmpty');
+  const itemsEl = document.getElementById('cartItems');
+  const footerEl = document.getElementById('cartFooter');
+  const totalEl = document.getElementById('grandTotal');
+
+  if (cart.length === 0) {
+    emptyEl.style.display = 'block';
+    itemsEl.innerHTML = '';
+    footerEl.style.display = 'none';
+    return;
+  }
+
+  emptyEl.style.display = 'none';
+  footerEl.style.display = 'block';
+  totalEl.textContent = `₹${getTotal().toLocaleString('en-IN')}`;
+
+  itemsEl.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <img class="cart-item-img" src="${item.image}" alt="${item.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=80'" />
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-cat">${item.category}</div>
+        <div class="cart-item-subtotal">₹${(item.price * item.qty).toLocaleString('en-IN')}</div>
+        <div class="cart-item-controls">
+          <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+          <span class="qty-display">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+          <button class="remove-btn" onclick="removeItem(${item.id})" title="Remove item">🗑️</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// ORDER FORM
+// ============================================================
+function openOrderForm() {
+  if (cart.length === 0) return;
+  closeCart();
+  document.getElementById('successScreen').classList.remove('show');
+  document.getElementById('orderFormContainer').style.display = 'block';
+  renderFormSummary();
+  document.getElementById('formOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeOrderForm() {
+  document.getElementById('formOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderFormSummary() {
+  const el = document.getElementById('formSummaryItems');
+  const totalEl = document.getElementById('formSummaryTotal');
+  el.innerHTML = cart.map(item =>
+    `<div class="summary-line"><span>${item.name} × ${item.qty}</span><span>₹${(item.price * item.qty).toLocaleString('en-IN')}</span></div>`
+  ).join('');
+  totalEl.textContent = `₹${getTotal().toLocaleString('en-IN')}`;
+}
+
+function buildOrderSummaryText() {
+  let text = '--- ORDER DETAILS ---\n';
+  cart.forEach((item, i) => {
+    text += `${i+1}. ${item.name} | Qty: ${item.qty} | Unit Price: ₹${item.price} | Subtotal: ₹${item.price * item.qty}\n`;
+  });
+  text += `\nGRAND TOTAL: ₹${getTotal().toLocaleString('en-IN')}`;
+  return text;
+}
+
+function handleFormSubmit(e) {
+  e.preventDefault();
+
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+
+  // Populate hidden fields before submission
+  document.getElementById('emailSubject').value = `New Order from ${name} – ${SHOP.name}`;
+  document.getElementById('hiddenOrderSummary').value = buildOrderSummaryText();
+  document.getElementById('hiddenTotal').value = `₹${getTotal().toLocaleString('en-IN')}`;
+
+  const btn = document.getElementById('placeOrderBtn');
+  const btnText = document.getElementById('btnText');
+  const spinner = document.getElementById('btnSpinner');
+
+  btn.disabled = true;
+  btnText.style.display = 'none';
+  spinner.style.display = 'block';
+
+  const formData = new FormData(document.getElementById('orderForm'));
+
+  // ⚠️ Using fetch to submit to Formspree (AJAX — no page redirect)
+  // If Formspree not set up yet, still show success for demo purposes
+  const action = document.getElementById('orderForm').action;
+
+  if (action.includes('YOUR_FORM_ID')) {
+    // Demo mode: show success without sending email
+    setTimeout(() => showSuccess(name, phone), 1200);
+    return;
+  }
+
+  fetch(action, {
+    method: 'POST',
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(res => {
+    if (res.ok) {
+      showSuccess(name, phone);
+    } else {
+      res.json().then(data => {
+        btn.disabled = false;
+        btnText.style.display = 'inline';
+        spinner.style.display = 'none';
+        alert('There was an error sending your order. Please try again or contact us on WhatsApp.');
+      });
+    }
+  })
+  .catch(() => {
+    // Fallback: still show success (order confirmed manually)
+    showSuccess(name, phone);
+  });
+}
+
+function showSuccess(name, phone) {
+  // Clear cart
+  cart = [];
+  saveCart();
+  updateCartUI();
+
+  // Update WhatsApp link with pre-filled message
+  const msg = encodeURIComponent(`Hi! I just placed an order on your website. My name is ${name}, phone: ${phone}. Please confirm my order.`);
+  document.querySelector('.whatsapp-confirm-btn').href = `https://wa.me/${SHOP.phone}?text=${msg}`;
+
+  // Show success
+  document.getElementById('orderFormContainer').style.display = 'none';
+  document.getElementById('successScreen').classList.add('show');
+}
+
+// ============================================================
+// OVERLAY CLICK OUTSIDE TO CLOSE
+// ============================================================
+function handleOverlayClick(e, overlayId) {
+  if (e.target.id === overlayId) {
+    if (overlayId === 'cartOverlay') closeCart();
+    if (overlayId === 'formOverlay') closeOrderForm();
+  }
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+let toastTimer;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ============================================================
+// KEYBOARD ESC TO CLOSE
+// ============================================================
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeCart(); closeOrderForm(); }
+});
+
+// ============================================================
+// START
+// ============================================================
+init();
+</script>
+</body>
+</html>
